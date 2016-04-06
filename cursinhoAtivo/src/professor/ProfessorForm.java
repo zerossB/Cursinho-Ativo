@@ -1,0 +1,281 @@
+package professor;
+/**
+ *
+ * @author JSQLGen
+ */
+public class ProfessorForm extends javax.swing.JDialog {
+    private final java.sql.Connection connection;
+    private Professor professor;
+
+    /** Construtor do form ProfessorForm
+     * @param parent Janela mãe
+     * @param connection Conexão com o BD
+     * @param professor Objeto a ser editado
+     */
+    public ProfessorForm(java.awt.Window parent, java.sql.Connection connection, Professor professor) {
+        super(parent);
+        this.connection = connection;
+        this.professor = professor;
+        initComponents();
+        obj2form();
+        this.setVisible(true);
+    }
+
+    /** Exibe caixa de diálogo para preenchimento dos campos
+     * @param parent Janela mãe
+     * @param connection Conexão com o BD
+     * @param professor Objeto a ser editado
+     * @return the professor
+     */
+    public static Professor showInputDialog(java.awt.Window parent, java.sql.Connection connection, Professor professor) {
+        return new ProfessorForm(parent, connection, professor).professor;
+    }
+
+    /** Transfere os dados do objeto para o formulário */
+    private void obj2form() {
+        tId.setText(professor.getId()==null?"":professor.getId().toString());
+        tMatricula.setText(""+(professor.getMatricula()==null?"":professor.getMatricula()));
+        tFoto.setText(professor.getFoto());
+        tNome.setText(professor.getNome());
+        cPeriodo.setSelectedItem(professor.getPeriodo());
+        tRg.setText(""+(professor.getRg()==null?"":professor.getRg()));
+        tCpf.setText(professor.getCpf()==null?"":professor.getCpf());
+        tTelefone.setText(professor.getTelefone());
+        tCelular.setText(professor.getCelular());
+        tCep.setText(professor.getCep());
+        tRua.setText(professor.getRua());
+        tBairro.setText(professor.getBairro());
+        tCidade.setText(professor.getCidade());
+        tComplemento.setText(professor.getComplemento());
+        cMateria.setSelectedItem(professor.getMateria().getId());
+        cTipo.setSelectedItem(professor.getTipo());
+        tValidade.setText(professor.getValidade());
+        cAtivo.setSelected(professor.getAtivo());
+    }
+
+    /** Transfere os dados do formulário para o objeto */
+    private void form2obj() {
+        professor.setId(tId.getText());
+        professor.setMatricula(tMatricula.getText());
+        professor.setFoto(tFoto.getText());
+        professor.setNome(tNome.getText());
+        professor.setPeriodo(cPeriodo.getSelectedItem().toString());
+        professor.setRg(tRg.getText());
+        professor.setCpf(tCpf.getText());
+        professor.setTelefone(tTelefone.getText());
+        professor.setCelular(tCelular.getText());
+        professor.setCep(tCep.getText());
+        professor.setRua(tRua.getText());
+        professor.setBairro(tBairro.getText());
+        professor.setCidade(tCidade.getText());
+        professor.setComplemento(tComplemento.getText());
+        try{
+            professor.setMateria(materia.MateriaDAO.loadById(connection, Integer.parseInt(cMateria.getSelectedItem().toString())));
+        } catch(java.sql.SQLException e){
+            javax.swing.JOptionPane.showMessageDialog(this, "Falha na leitura do banco de dados!\n"+e.getMessage(),"Aviso",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+        professor.setTipo(cTipo.getSelectedItem().toString());
+        professor.setValidade(tValidade.getText());
+        professor.setAtivo(cAtivo.isSelected());
+    }
+
+    /** valida os dados do formulário */
+    private String validateForm() {
+        String fieldError ="";
+        if(Integer.parseInt(tMatricula.getText())<0) fieldError +="Matricula\n";
+        if(tFoto.getText().length()<1) fieldError +="Foto\n";
+        if(tNome.getText().length()<1) fieldError +="Nome\n";
+        if(cPeriodo.getSelectedItem()==null) fieldError +="Periodo\n";
+        if(Integer.parseInt(tRg.getText())<0) fieldError +="Rg\n";
+        if(tCpf.getText().length()<1) fieldError +="Cpf\n";
+        if(tTelefone.getText().length()<1) fieldError +="Telefone\n";
+        if(tCelular.getText().length()<1) fieldError +="Celular\n";
+        if(tCep.getText().length()<1) fieldError +="Cep\n";
+        if(tRua.getText().length()<1) fieldError +="Rua\n";
+        if(tBairro.getText().length()<1) fieldError +="Bairro\n";
+        if(tCidade.getText().length()<1) fieldError +="Cidade\n";
+        if(tComplemento.getText().length()<1) fieldError +="Complemento\n";
+        if(cMateria.getSelectedItem()==null) fieldError +="Materia\n";
+        if(cTipo.getSelectedItem()==null) fieldError +="Tipo\n";
+        if(tValidade.getText().length()<1) fieldError +="Validade\n";
+        return fieldError;
+    }
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        pData = new javax.swing.JPanel();
+        tbData = new javax.swing.JTabbedPane();
+        pButtons = new javax.swing.JPanel();
+        bOk = new javax.swing.JButton();
+        bCancel = new javax.swing.JButton();
+        tId = new javax.swing.JLabel();
+        tMatricula = new javax.swing.JFormattedTextField();
+        tFoto = new javax.swing.JFormattedTextField();
+        tNome = new javax.swing.JFormattedTextField();
+        cPeriodo = new javax.swing.JComboBox(Professor.PERIODO);
+        tRg = new javax.swing.JFormattedTextField();
+        tCpf = new javax.swing.JFormattedTextField();
+        tTelefone = new javax.swing.JFormattedTextField();
+        tCelular = new javax.swing.JFormattedTextField();
+        tCep = new javax.swing.JFormattedTextField();
+        tRua = new javax.swing.JFormattedTextField();
+        tBairro = new javax.swing.JFormattedTextField();
+        tCidade = new javax.swing.JFormattedTextField();
+        tComplemento = new javax.swing.JFormattedTextField();
+        cMateria = new javax.swing.JComboBox(materia.MateriaDAO.loadIdList(connection).toArray());
+        cTipo = new javax.swing.JComboBox(Professor.TIPO);
+        tValidade = new javax.swing.JFormattedTextField();
+        cAtivo = new javax.swing.JCheckBox();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Formulário de Professor");
+        setModal(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        pData.setLayout(new java.awt.GridLayout(5, 0));
+        tId.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        tId.setBorder(javax.swing.BorderFactory.createTitledBorder("Id"));
+        pData.add(tId);
+        tMatricula.setBorder(javax.swing.BorderFactory.createTitledBorder("Matricula"));
+        tMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        tMatricula.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        pData.add(tMatricula);
+        tFoto.setBorder(javax.swing.BorderFactory.createTitledBorder("Foto"));
+        pData.add(tFoto);
+        tNome.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+        pData.add(tNome);
+        cPeriodo.setBorder(javax.swing.BorderFactory.createTitledBorder("Periodo"));
+        pData.add(cPeriodo);
+        tRg.setBorder(javax.swing.BorderFactory.createTitledBorder("Rg"));
+        tRg.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        tRg.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        pData.add(tRg);
+        tCpf.setBorder(javax.swing.BorderFactory.createTitledBorder("Cpf"));
+        try {
+            tCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        pData.add(tCpf);
+        tTelefone.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefone"));
+        try {
+            tTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) ####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        pData.add(tTelefone);
+        tCelular.setBorder(javax.swing.BorderFactory.createTitledBorder("Celular"));
+        try {
+            tCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #.####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        pData.add(tCelular);
+        tCep.setBorder(javax.swing.BorderFactory.createTitledBorder("Cep"));
+        try {
+            tCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        pData.add(tCep);
+        tRua.setBorder(javax.swing.BorderFactory.createTitledBorder("Rua"));
+        pData.add(tRua);
+        tBairro.setBorder(javax.swing.BorderFactory.createTitledBorder("Bairro"));
+        pData.add(tBairro);
+        tCidade.setBorder(javax.swing.BorderFactory.createTitledBorder("Cidade"));
+        pData.add(tCidade);
+        tComplemento.setBorder(javax.swing.BorderFactory.createTitledBorder("Complemento"));
+        pData.add(tComplemento);
+        cMateria.setBorder(javax.swing.BorderFactory.createTitledBorder("Materia"));
+        pData.add(cMateria);
+        cTipo.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo"));
+        pData.add(cTipo);
+        tValidade.setBorder(javax.swing.BorderFactory.createTitledBorder("Validade"));
+        pData.add(tValidade);
+        cAtivo.setText("Ativo");
+        pData.add(cAtivo);
+        getContentPane().add(pData, java.awt.BorderLayout.NORTH);
+        getContentPane().add(tbData, java.awt.BorderLayout.CENTER);
+        pButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
+        bOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbox/images/stock_calc-accept-16.png"))); // NOI18N
+        bOk.setMnemonic('O');
+        bOk.setText("Ok");
+        bOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bOkActionPerformed(evt);
+            }
+        });
+        pButtons.add(bOk);
+        bCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/toolbox/images/stock_calc-cancel-16.png"))); // NOI18N
+        bCancel.setMnemonic('C');
+        bCancel.setText("Cancelar");
+        bCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelActionPerformed(evt);
+            }
+        });
+        pButtons.add(bCancel);
+        getContentPane().add(pButtons, java.awt.BorderLayout.SOUTH);
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-800)/2, (screenSize.height-600)/2, 800, 600);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void bOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOkActionPerformed
+        String fieldError =validateForm();
+        if(fieldError.length()==0) {
+            form2obj();
+            this.setVisible(false);
+            this.dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Verifique os campos seguintes e tente novamente!\n"+fieldError,"Aviso",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_bOkActionPerformed
+
+    private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
+        professor = null;
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_bCancelActionPerformed
+
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        bCancelActionPerformed(null);
+    }//GEN-LAST:event_formWindowClosing
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bCancel;
+    private javax.swing.JButton bOk;
+    private javax.swing.JPanel pButtons;
+    private javax.swing.JPanel pData;
+    private javax.swing.JTabbedPane tbData;
+    private javax.swing.JLabel tId;
+    private javax.swing.JFormattedTextField tMatricula;
+    private javax.swing.JFormattedTextField tFoto;
+    private javax.swing.JFormattedTextField tNome;
+    private javax.swing.JComboBox cPeriodo;
+    private javax.swing.JFormattedTextField tRg;
+    private javax.swing.JFormattedTextField tCpf;
+    private javax.swing.JFormattedTextField tTelefone;
+    private javax.swing.JFormattedTextField tCelular;
+    private javax.swing.JFormattedTextField tCep;
+    private javax.swing.JFormattedTextField tRua;
+    private javax.swing.JFormattedTextField tBairro;
+    private javax.swing.JFormattedTextField tCidade;
+    private javax.swing.JFormattedTextField tComplemento;
+    private javax.swing.JComboBox cMateria;
+    private javax.swing.JComboBox cTipo;
+    private javax.swing.JFormattedTextField tValidade;
+    private javax.swing.JCheckBox cAtivo;
+    // End of variables declaration//GEN-END:variables
+}

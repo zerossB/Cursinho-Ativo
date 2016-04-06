@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Sun Apr 03 14:48:50 BRT 2016:
+ Inicializando o Derby versão The Apache Software Foundation - Apache Derby - 10.8.1.2 - (1095077): instância a816c00e-0153-dd3d-d6db-00000e4dae38
+no diretório de banco de dados D:\Documents\Cursinho\Programas\cursinhoAtivo\data  
+
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_60-b27
+user.dir=D:\Documents\Cursinho\Programas\cursinhoAtivo
+derby.system.home=null
+Carregador de classe do banco de dados iniciado - derby.database.classpath=''
